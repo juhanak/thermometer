@@ -2,13 +2,12 @@ var sql = require('mssql');
 var express = require('express');
 var app = express();
 var bodyParser  = require('body-parser');
-var jsonParser = bodyParser.json();
 var uploadTemperature = require('./uploadTemperature.js');
+var jsonParser = bodyParser.json();
 var uploadTemperatureObj = new uploadTemperature();
 var port = process.env.PORT || 1337;
 var connectionString = process.env.mssqlconnection;
 var errLog = "no error";
-
 
 sql.connect(connectionString).then(function() {
 }).catch(function(err) {
