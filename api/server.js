@@ -1,12 +1,12 @@
 var sql = require('mssql');
 var http = require('http')
 var port = process.env.PORT || 1337;
-
 var connectionString = process.env.mssqlconnection;
-sql.connect(connectionString).then(function() {
+var errLog = "no error";
 
+sql.connect(connectionString).then(function() {
 }).catch(function(err) {
-    console.log(err)
+    errLog = err; 
 });
 
 http.createServer(function(req, res) {
@@ -16,9 +16,7 @@ http.createServer(function(req, res) {
         //console.dir(recordset);
         res.end('request fine\n');
     }).catch(function(err) {
-        res.end('request failed\n');
+        res.end('request failed\n' + err + errLog);
     });
-
-
-  
+ 
 }).listen(port);
