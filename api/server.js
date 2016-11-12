@@ -1,6 +1,15 @@
-var http = require('http')
-var port = process.env.PORT || 1337;
-http.createServer(function(req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World\n');
-}).listen(port);
+var sql = require('mssql');
+
+var connectionString = process.env.mssqlconnection;
+
+sql.connect(connectionString).then(function() {
+
+    new sql.Request().query('select * from device').then(function(recordset) {
+        console.dir(recordset);
+    }).catch(function(err) {
+        console.log(err) 
+    });
+ 
+}).catch(function(err) {
+    console.log(err)
+});
