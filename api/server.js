@@ -27,9 +27,15 @@ app.post('/uploadTemperature', jsonParser, function(sReq, sRes){
   console.log('finished');
 });
 
+app.get('/api/getStatus', function(sReq, sRes){
+  sRes.send('Status OK');
+});
+
 app.listen(port, function () {
   console.log('Service listening on port' + port);
 });
+
+
 
 process.on('uncaughtException', function (err) {
   log.log('uncaughtException',err);
