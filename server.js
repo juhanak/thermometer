@@ -2,9 +2,13 @@ var sql = require('mssql');
 var express = require('express');
 var app = express();
 var bodyParser  = require('body-parser');
-var uploadTemperature = require('./uploadTemperature.js');
+var UploadTemperature = require('./routes/uploadTemperature.js');
+var GetTemperatures = require('./routes/getTemperatures.js');
+
 var jsonParser = bodyParser.json();
-var uploadTemperatureObj = new uploadTemperature();
+var uploadTemperatureObj = new UploadTemperature();
+var getTemperaturesObj = new GetTemperatures();
+
 var port = process.env.PORT || 1337;
 var connectionString = process.env.mssqlconnection;
 var errLog = "no error";
@@ -21,10 +25,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/uploadTemperature', jsonParser, function(sReq, sRes){
+app.post('/api/uploadTemperature', jsonParser, function(sReq, sRes){
   if (!sReq.body) return sRes.sendStatus(400)
   uploadTemperatureObj.execute(sReq, sRes, sql);
-  console.log('finished');
+  console.log('uploadTemperature finished');
+});
+
+app.get('/api/getTemperatures', function(sReq, sRes){
+  getTemperaturesObj.execute(sReq,sRes,sql);
+  console.log('getTemperatures finished');
 });
 
 app.get('/api/getStatus', function(sReq, sRes){
@@ -34,8 +43,6 @@ app.get('/api/getStatus', function(sReq, sRes){
 app.listen(port, function () {
   console.log('Service listening on port' + port);
 });
-
-
 
 process.on('uncaughtException', function (err) {
   log.log('uncaughtException',err);

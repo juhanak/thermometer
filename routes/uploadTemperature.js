@@ -2,8 +2,6 @@ var eachSeries = require('async/eachSeries');
 var mapSeries = require('async/mapSeries');
 
 module.exports = class UploadTemperature{
-  constructor( ) {
-  }
 
   execute(sReq, sRes, sql) {
     var _this = this;
@@ -20,7 +18,7 @@ module.exports = class UploadTemperature{
       .query('INSERT INTO measurement(iddevice, temperature) VALUES (@input_parameter1,@input_parameter2)').then(function(recordset) {
       return finish(sRes,1)        
     }).catch(function(err) {
-        return finish(sRes,1)
+      return finish(sRes,1)
     });
   }
 }
