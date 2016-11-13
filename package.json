@@ -1,5 +1,5 @@
 {
-  "engines" : { "node" : ">=6.9.1" } }
+  "engines" : { "node" : ">=6.9.1" },
   "name": "thermometer",
   "version": "1.0.0",
   "description": "",
