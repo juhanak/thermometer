@@ -4,10 +4,12 @@ var app = express();
 var bodyParser  = require('body-parser');
 var UploadTemperature = require('./routes/uploadTemperature.js');
 var GetTemperatures = require('./routes/getTemperatures.js');
+var GetDevices = require('./routes/getDevices.js');
 
 var jsonParser = bodyParser.json();
 var uploadTemperatureObj = new UploadTemperature();
 var getTemperaturesObj = new GetTemperatures();
+var getDevicesObj = new GetDevices();
 
 var port = process.env.PORT || 1337;
 var connectionString = process.env.mssqlconnection;
@@ -34,6 +36,11 @@ app.post('/api/uploadTemperature', jsonParser, function(sReq, sRes){
 app.get('/api/getTemperatures', function(sReq, sRes){
   getTemperaturesObj.execute(sReq,sRes,sql);
   console.log('getTemperatures finished');
+});
+
+app.get('/api/getDevices', function(sReq, sRes){
+  getDevicesObj.execute(sReq,sRes,sql);
+  console.log('getDevicesObj finished');
 });
 
 app.get('/api/getStatus', function(sReq, sRes){
