@@ -1,3 +1,4 @@
+var appInsights = require("applicationinsights");
 var sql = require('mssql');
 var express = require('express');
 var app = express();
@@ -13,6 +14,17 @@ var getDevicesObj = new GetDevices();
 
 var port = process.env.PORT || 1337;
 var connectionString = process.env.mssqlconnection;
+
+var instrumentationKey = process.env.instrumentation_key || null;
+
+if(instrumentationKey) {
+  appInsights.setup(instrumentationKey)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true)
+    .setAutoCollectExceptions(true)
+    .start();
+}
+
 var errLog = "no error";
 
 sql.connect(connectionString).then(function() {
