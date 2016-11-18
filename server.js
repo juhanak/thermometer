@@ -56,7 +56,7 @@ app.get('/api/getDevices', function(sReq, sRes){
 });
 
 app.get('/api/getStatus', function(sReq, sRes){
-  sRes.send('Status OK');
+  sRes.send('Status OK.');
 });
 
 app.listen(port, function () {
